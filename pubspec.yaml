@@ -38,6 +38,7 @@ dependencies:
   provider:
   shared_preferences:
   intl:
+  wifi_iot:
 
 dev_dependencies:
   flutter_test:

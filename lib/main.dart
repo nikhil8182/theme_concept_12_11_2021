@@ -4,13 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
+
+
+//theme on auto theme concept
+//19-nov-2021 completed
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.getInstance().then((prefs) {
-    //var isDarkTheme = prefs.getBool("darkTheme") ?? false;
-    var isDarkTheme = prefs.getInt("darValue") ?? 0 ;
+
+    var isDarkTheme = prefs.getInt("darValue") ?? 3 ;
+    var isDarkTime = prefs.getInt('time') ?? 0 ;
     //ignore:avoid_print
     print("the value of theme provider $isDarkTheme");
+    //ignore:avoid_print
+    print("the time in theme provider is $isDarkTime");
     // return runApp(
     //   ChangeNotifierProvider<ThemeProvider>(
     //     child:  MyApp(),
@@ -18,14 +28,15 @@ void main() {
     //       return ThemeProvider(isDarkTheme);
     //     },
     //   ),
-    runApp(MyApp(isDarkTheme)
+    runApp(MyApp(isDarkTheme,isDarkTime)
     );
   });
 }
 
 class MyApp extends StatelessWidget {
   final int darkNum;
-  MyApp(this.darkNum);
+  final int darkTim;
+  MyApp(this.darkNum,this.darkTim);
 
 
   // This widget is the root of your application.
@@ -42,27 +53,45 @@ class MyApp extends StatelessWidget {
     //   },
     // );
     return ChangeNotifierProvider(
-        create: (context) => ThemeProvider(darkNum),
+        create: (context) => ThemeProvider(darkNum,darkTim),
         builder: (context, _) {
           final themeProvider = Provider.of<ThemeProvider>(context);
             return MaterialApp(
-              //themeMode: (widget.val == null) ? ThemeMode.system : (widget.val == 0) ? ThemeMode.system : (widget.val == 1) ? ThemeMode.light : ThemeMode.dark,
-              //themeMode: themeee as ThemeMode ,
-              //themeMode: themeProvider.themeMode,
-              //themeMode: themeProvider.getTheme(),
-              // (themeProvider.theme() == ThemeMode.dark)? ThemeMode.dark:
-              // (themeProvider.theme() == ThemeMode.light) ? ThemeMode.light :
-              // (themeProvider.theme() == ThemeMode.system) ? ThemeMode.system: null,
-              //theme: (val == null) ? MyThemes.darkTheme : (val  == 0) ? MyThemes.darkTheme : (val == 1) ? MyThemes.lightTheme : MyThemes.darkTheme,
-              //darkTheme: MyThemes.darkTheme,
                themeMode: themeProvider.getTheme(),
                //theme: themeProvider.getTheme(),
                theme: ThemeData.light(),
                darkTheme: ThemeData.dark(),
-               home: LoginScreen(),
+               home: DemoLogin(),
               debugShowCheckedModeBanner: false,
           );
         }
+    );
+  }
+}
+
+
+class DemoLogin extends StatefulWidget {
+
+  @override
+  _DemoLoginState createState() => _DemoLoginState();
+}
+
+class _DemoLoginState extends State<DemoLogin> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        child: Center(
+          child: ElevatedButton(child: Text("Next"),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+          },
+
+          ),),
+
+      ),
     );
   }
 }

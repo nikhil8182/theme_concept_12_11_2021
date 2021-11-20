@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../theme.dart';
 import 'package:intl/intl.dart';
 
+import 'lobby_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  int _grpValue = 0 ;
+  int _grpValue = 3 ;
   SharedPreferences prefs;
   Timer timer;
   DateTime now ;
@@ -30,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   initial() async {
     prefs = await SharedPreferences.getInstance();
     setState(() {
-      _grpValue = prefs.getInt("val") ?? 0;
+      _grpValue = prefs.getInt("val") ?? 3;
       //ignore:avoid_print
       print("_grp value is $_grpValue");
       if(_grpValue == 0){
@@ -170,7 +172,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           }
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 200),
+                      ElevatedButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, child: const Text("Next Page")),
                     ],
                   ),
                 ),
