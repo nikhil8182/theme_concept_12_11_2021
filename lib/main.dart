@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 //theme on auto theme concept
-//19-nov-2021 completed
+//19-nov-2021 completed ..
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
